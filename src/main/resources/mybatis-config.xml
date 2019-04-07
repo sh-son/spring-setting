@@ -5,8 +5,8 @@
 
 <configuration>
 
-    <typeAliases>
+<!--    <typeAliases>
         <package name="com.son.mvcboard" />
-    </typeAliases>
+    </typeAliases>-->
 
 </configuration>
