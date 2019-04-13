@@ -1,3 +1,5 @@
+package com.son.mvcboard.tutorial.controller;
+
 import org.junit.Test;
 
 import java.sql.Connection;

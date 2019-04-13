@@ -1,3 +1,5 @@
+package com.son.mvcboard.tutorial.controller;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
