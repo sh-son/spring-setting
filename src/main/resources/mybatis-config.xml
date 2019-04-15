@@ -5,8 +5,8 @@
 
 <configuration>
 
-<!--    <typeAliases>
-        <package name="com.son.mvcboard" />
-    </typeAliases>-->
+    <typeAliases>
+        <typeAlias type="com.son.mvcboard.article.domain.ArticleVO" alias="ArticleVO"/>
+    </typeAliases>
 
 </configuration>
