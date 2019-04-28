@@ -40,4 +40,27 @@ public class ArticleVO {
         this.viewCnt = viewCnt;
     }
 
+    public Integer getArticleNo() {
+        return articleNo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public int getViewCnt() {
+        return viewCnt;
+    }
 }

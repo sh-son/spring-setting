@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -165,7 +166,7 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
- ../include/plugin_js.jsp"%>
+<%@include file="../include/plugin_js.jsp"%>
 
 </body>
 </html>
