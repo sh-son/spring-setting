@@ -61,7 +61,7 @@ public class ArticleController {
     }
 
     // 조회 페이지 이동
-    @RequestMapping(value = "/red", method = RequestMethod.GET)
+    @RequestMapping(value = "/read", method = RequestMethod.GET)
     public String read(@RequestParam("articleNo") int articleNo,
                        Model model) throws Exception {
 
