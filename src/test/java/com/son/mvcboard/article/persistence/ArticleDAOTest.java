@@ -1,6 +1,7 @@
 package com.son.mvcboard.article.persistence;
 
 import com.son.mvcboard.article.domain.ArticleVO;
+import com.son.mvcboard.commons.paging.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,11 +24,14 @@ public class ArticleDAOTest {
 
     @Test
     public void create() throws Exception{
-        ArticleVO article = new ArticleVO();
-        article.setTitle("새로운 글 작성 테스트 제목");
-        article.setContent("새로운 글 작성 테스트 내용");
-        article.setWriter("새로운 글 작성자");
-        articleDAO.create(article);
+        for(int i = 1; i <= 1000; i++) {
+            ArticleVO article = new ArticleVO();
+            article.setTitle( i + "번째 글 제목");
+            article.setContent( i + "번째 글 내용");
+            article.setWriter("user0" + (i%10));
+
+            articleDAO.create(article);
+        }
     }
 
     @Test
@@ -46,6 +51,19 @@ public class ArticleDAOTest {
     @Test
     public void delete() throws Exception {
         articleDAO.delete(1);
+    }
+
+    @Test
+    public void listCriteria() throws Exception {
+        Criteria criteria = new Criteria();
+        criteria.setPage(3);
+        criteria.setPerPageNum(20);
+
+        List<ArticleVO> articles = articleDAO.listCriteria(criteria);
+
+        for (ArticleVO article : articles) {
+            System.out.println(article.getArticleNo() + " : " + article.getTitle());
+        }
     }
 
 }
