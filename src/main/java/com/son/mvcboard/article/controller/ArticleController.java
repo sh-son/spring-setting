@@ -2,6 +2,8 @@ package com.son.mvcboard.article.controller;
 
 import com.son.mvcboard.article.domain.ArticleVO;
 import com.son.mvcboard.article.service.ArticleService;
+import com.son.mvcboard.commons.paging.Criteria;
+import com.son.mvcboard.commons.paging.PageMaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -47,17 +49,23 @@ public class ArticleController {
         articleService.create(articleVO);
         redirectAttributes.addFlashAttribute("msg", "regSuccess");
 
-        return "redirect:/article/list";
+        return "redirect:/article/listPaging";
     }
 
     // 목록 페이지 이동
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) throws Exception {
+    @RequestMapping(value = "/listPaging", method = RequestMethod.GET)
+    public String listPaging(Model model, Criteria criteria) throws Exception {
+        logger.info("listPaging");
 
-        logger.info("list ...");
-        model.addAttribute("articles", articleService.listAll());
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCriteria(criteria);
 
-        return "article/list";
+        pageMaker.setTotalCount(articleService.countArticles(criteria));
+
+        model.addAttribute("articles", articleService.listCriteria(criteria));
+        model.addAttribute("pageMaker", pageMaker);
+
+        return "/article/list_paging";
     }
 
     // 조회 페이지 이동
@@ -91,7 +99,7 @@ public class ArticleController {
         articleService.update(articleVO);
         redirectAttributes.addFlashAttribute("msg", "modSuccess");
 
-        return "redirect:/article/list";
+        return "redirect:/article/listPaging";
     }
 
     // 삭제 처리
@@ -103,7 +111,7 @@ public class ArticleController {
         articleService.delete(articleNo);
         redirectAttributes.addFlashAttribute("msg", "delSuccess");
 
-        return "redirect:/article/list";
+        return "redirect:/article/listPaging";
     }
 
 

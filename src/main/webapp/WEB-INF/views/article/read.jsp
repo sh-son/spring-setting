@@ -108,7 +108,7 @@ desired effect
         });
 
         $(".listBtn").on("click", function () {
-            self.location = "/article/list"
+            self.location = "/article/listPaging"
         });
 
     });
