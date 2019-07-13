@@ -2,15 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
     <!-- DataSource log4jdbc-log4j2 설정 -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-        <property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/spring_ex?useSSL=false&amp;serverTimezone=UTC"/>
-        <property name="username" value="root"/>
-        <property name="password" value="1234"/>
+        <property name="driverClassName" value="#{db['jdbc.driver']}"/>
+        <property name="url" value="#{db['jdbc.url']}?useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="username" value="#{db['jdbc.username']}"/>
+        <property name="password" value="#{db['jdbc.password']}"/>
     </bean>
 
     <!--SqlSessionFactory 설정 : dataSource를 참조, mybatis-config.xml 경로설정-->
@@ -25,4 +26,13 @@
     </bean>
 
     <context:component-scan base-package="com.son.mvcboard"/>
+
+    <util:properties id="db" location="classpath:${spring.profiles.active}.properties" />
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
 </beans>
